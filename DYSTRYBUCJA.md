@@ -69,27 +69,46 @@ drugi klik odwraca kolejność.
 - **⚠ Inna komórka niż D65** — program znalazł etykietę „Wartość końcowa
   kontraktu” nie w standardowym miejscu (D65), tylko gdzie indziej w tym
   samym arkuszu (np. D66 — bywa tak, gdy w D65 jest marża przedstawiciela, nie
-  wartość kontraktu). Kolumna „Źródło” pokazuje wtedy `⚠ D66` zamiast `D65`.
-  Warto zerknąć do pliku i upewnić się, że to naprawdę właściwa liczba.
+  wartość kontraktu), **albo** znalazł etykietę w D65, ale ktoś wstawił obok
+  dodatkową kolumnę (np. z przeliczeniem na EUR) i właściwa wartość w PLN
+  przesunęła się do innej litery (np. E65). Kolumna „Źródło” pokazuje wtedy
+  `⚠ D66` albo `⚠ E65` zamiast `D65`. Warto zerknąć do pliku i upewnić się,
+  że to naprawdę właściwa liczba w PLN, a nie przeliczenie walutowe.
 - **Spadki ▼** — wartość w ofercie jest niższa niż to, co już jest wpisane w
   ClickUp. Zdarza się (renegocjacja, korekta), ale warto rzucić okiem, czy to
   nie pomyłka w pliku.
 - **Wymagające decyzji** (patrz niżej) — te wiersze same się nie zaznaczą,
-  dopóki nie rozstrzygniesz, o które zadanie/wariant chodzi.
+  dopóki nie rozstrzygniesz, o które zadanie/wariant/plik chodzi.
 
-### 4. Rozstrzyganie niejednoznacznych i wariantów
+### 4. Rozstrzyganie niejednoznacznych, wariantów i kilku plików
 
-Dwa stany wymagają Twojej decyzji, zanim wiersz w ogóle będzie można wysłać:
+Trzy stany wymagają Twojej decyzji, zanim wiersz w ogóle będzie można wysłać:
 
 - **niejednoznaczne** — ten sam numer oferty pasuje do kilku zadań w
   ClickUp (typowo różni klienci pod tym samym numerem) i program nie wie,
   które wybrać.
 - **kilka wariantów** — plik Excela ma kilka arkuszy zaczynających się od
   „ZESTAWIENIE” (np. dla różnych wersji cenowych) zamiast jednego.
+- **kilka plików** — w folderze leżą dwa (albo więcej) pliki o dokładnie tej
+  samej nazwie oferty i wersji (np. `Robot.xlsm` obok `Robot.xlsx`, albo plik
+  z dopiskiem „- kopia”) i program nie wie, z którego wziąć wartość.
 
-**Podwójny klik** na takim wierszu (albo `Enter`, gdy jest zaznaczony)
-otwiera okno wyboru — kliknij właściwą pozycję i **Wybierz**. Wiersz od razu
-przelicza się na normalny stan (do aktualizacji / bez zmian / brak ceny).
+Wiersz wymagający decyzji ma w kolumnie **Stan** dopisek „— wybierz ▸”, żeby
+było od razu widać, że coś trzeba rozstrzygnąć. Sposoby otwarcia okna wyboru:
+
+- **Podwójny klik** na wierszu (albo `Enter`, gdy jest zaznaczony w tabeli).
+- Przycisk **☰ Rozstrzygnij (N)** w pasku narzędzi — otwiera okno decyzji dla
+  zaznaczonego wiersza (albo pierwszego nierozstrzygniętego, gdy nic nie jest
+  zaznaczone) i po każdym wyborze **od razu przechodzi do kolejnego** — dzięki
+  temu można rozstrzygnąć wszystkie decyzje jedna po drugiej bez szukania ich
+  w tabeli. „Anuluj” w oknie przerywa serię.
+- **Prawy przycisk myszy** na wierszu → pozycja „Wybierz zadanie…” / „Wybierz
+  wariant…” / „Wybierz plik…” (nazwa zależy od stanu wiersza).
+
+W oknie kliknij właściwą pozycję i **Wybierz** (albo podwójny klik na
+pozycji). Wiersz od razu przelicza się na normalny stan (do aktualizacji /
+bez zmian / brak ceny). Pod tabelą główną jest podpowiedź przypominająca te
+skróty.
 
 ### 5. Zaznaczanie i wysyłka
 
@@ -109,7 +128,66 @@ Po wysyłce wiersz dostaje status „✓ wysłano” i znika z „do aktualizacj
 Jeśli coś się nie udało, wiersz zostaje zaznaczalny ze statusem „✗ błąd
 wysyłki” — możesz spróbować wysłać go ponownie.
 
-### 6. Raport
+Jeśli po wysyłce w tabeli zostały wiersze **plik bez zadania**, program od
+razu zapyta, czy utworzyć dla nich zadania w ClickUp (patrz punkt 7 niżej).
+
+### 6. Zapamiętane wybory (📌)
+
+Gdy raz rozstrzygniesz „niejednoznaczne”, „kilka wariantów” albo „kilka
+plików”, program **zapamiętuje Twój wybór** (który plik/arkusz/zadanie —
+**nigdy kwotę**) i przy kolejnym skanie stosuje go sam, bez pytania. Taki
+wiersz dostaje w kolumnie „Źródło” znacznik **📌** i wchodzi do licznika „📌 z
+zapamiętanego wyboru” nad tabelą. Kwota jest zawsze czytana na nowo z pliku
+Excela/z ClickUp — jeśli cena w pliku się zmieni, zobaczysz to od razu, mimo
+że sam wybór (np. „ten arkusz”) został zapamiętany.
+
+Uwaga: wybór jest zapamiętywany pod **dokładną nazwą pliku** — jeśli plik
+dostanie nową wersję (inna nazwa, np. `.6` zamiast `.5`), trzeba będzie
+zdecydować ponownie. To celowe zabezpieczenie: program nie zgaduje za Ciebie
+przy nowej wersji oferty.
+
+Co zrobić z zapamiętanym wyborem:
+- **Prawy przycisk myszy** na wierszu z 📌 → **„Zmień wybór…”** (otwiera okno
+  wyboru jeszcze raz, z tymi samymi opcjami) albo **„Zapomnij wybór”**
+  (usuwa zapamiętaną decyzję — wiersz wraca do stanu wymagającego decyzji
+  przy następnym skanie).
+- W ustawieniach (⚙) → sekcja **„Zapamiętane wybory”** widać, ile decyzji
+  jest zapisanych, i można je **wszystkie naraz wyczyścić** przyciskiem
+  „Wyczyść zapamiętane wybory” (z potwierdzeniem) — przydatne np. po dużym
+  porządkowaniu folderu ofert.
+
+### 7. Tworzenie zadań dla plików bez zadania
+
+Gdy w folderze jest plik oferty, dla którego nikt jeszcze nie założył zadania
+w ClickUp (stan **plik bez zadania**), program może założyć je za Ciebie.
+
+Kliknij przycisk **➕ Utwórz zadania (N)** w pasku narzędzi (N = liczba takich
+plików) — albo poczekaj na automatyczne pytanie po wysyłce (patrz punkt 5).
+Otworzy się okno z listą plików:
+
+- Domyślnie zaznaczone są tylko pliki, dla których udało się odczytać cenę —
+  pliki bez ceny są widoczne, ale odznaczone. Możesz je zaznaczyć ręcznie:
+  zadanie powstanie wtedy bez wypełnionego pola OFFER VALUE.
+- **Status dla zaznaczonych** — rozwijana lista pokazuje statusy dostępne na
+  liście ClickUp. Domyślnie ustawiony jest status „sent to customer” (albo
+  podobny, jeśli lista nazywa go inaczej pisownią), bo z założenia te pliki
+  są już gotowe i wysłane do klienta. Jeśli chcesz nadać innym plikom inny
+  status (np. część zostaje w statusie roboczym), zaznacz je, wybierz status
+  z listy i kliknij **„Ustaw”**. Jeśli lista w ogóle nie ma statusu „sent to
+  customer”, program pokaże ostrzeżenie i użyje pierwszego statusu otwartego
+  — sprawdź wtedy, czy to na pewno właściwy status.
+- Nazwa nowego zadania będzie **dokładnie taka jak nazwa pliku** (bez
+  rozszerzenia `.xlsm`/`.xlsx`) — dzięki temu kolejny skan od razu rozpozna
+  nowe zadanie i sparuje je z tym samym plikiem.
+- Kliknij **➕ Utwórz zaznaczone (N)** i potwierdź. Zadania powstają po
+  kolei, z logiem na bieżąco (✓ utworzone / ✗ błąd z przyczyną) — operację
+  można wstrzymać albo anulować tak samo jak wysyłkę.
+- Po zakończeniu wiersz w głównej tabeli dostaje stan „✓ utworzono zadanie”
+  z linkiem do nowego zadania. Jeśli coś się nie udało, wiersz wraca do
+  „plik bez zadania” z przyczyną błędu — możesz spróbować ponownie bez
+  ponownego skanowania całego folderu.
+
+### 8. Raport
 
 **⤓ Zapisz raport (CSV)** zapisuje bieżący stan tabeli do pliku — otwiera się
 poprawnie w Excelu (polskie znaki, przecinek dziesiętny) i zawiera link do
@@ -137,14 +215,30 @@ ZESTAWIENIE, albo wartość jest pusta, zerowa, albo to błąd formuły
 **Zadanie bez pliku / plik bez zadania — co robić?**
 To nie jest błąd programu — po prostu w folderze nie ma jeszcze pliku dla
 zadania z ClickUp (albo odwrotnie: plik jest, ale nikt nie założył jeszcze
-zadania). Te wiersze nie da się zaznaczyć do wysyłki — jeśli to się nie
-zgadza, sprawdź, czy plik ma poprawną nazwę (wzorzec `OFFERnnnnn.w - KLIENT -
-opis`) i czy leży bezpośrednio w skonfigurowanym folderze, nie w podfolderze.
+zadania). Te wiersze nie da się zaznaczyć do wysyłki. „Plik bez zadania”
+najprościej rozwiązać przyciskiem **➕ Utwórz zadania** (patrz punkt 7 wyżej)
+— program założy zadanie za Ciebie. Jeśli to się nie zgadza (zadanie
+powinno już istnieć), sprawdź, czy plik ma poprawną nazwę (wzorzec
+`OFFERnnnnn.w - KLIENT - opis`), czy leży bezpośrednio w skonfigurowanym
+folderze (nie w podfolderze), i czy nazwa zadania w ClickUp zawiera ten sam
+numer OFFER — numer w tytule zadania może stać w dowolnym miejscu (np.
+„Aktualizacja - OFFER19725.1 - ENGEL UK…” albo „FICOMIRRORS - … -
+OFFER10524.2”), ale musi być zapisany **wielkimi literami** „OFFER”.
+
+**Wiersz ma stan „kilka plików”.**
+W folderze są dwa (albo więcej) pliki tej samej oferty i wersji — np.
+`Robot.xlsm` obok `Robot.xlsx`, albo plik z dopiskiem „- kopia”. Program nie
+zgaduje, który jest właściwy: podwójny klik (albo przycisk **☰ Rozstrzygnij**)
+otwiera okno, w którym wybierasz jeden plik. Jeśli to się nie zgadza, warto
+posprzątać folder i usunąć/przenieść zbędną kopię, żeby uniknąć pomyłki przy
+kolejnych skanach.
 
 **„Nie rozpoznano nazwy”.**
 Nazwa pliku albo zadania nie pasuje do wzorca `OFFERnnnnn.w - KLIENT - opis`
-(np. brakuje cyfry w numerze albo numer nie ma dokładnie 5 cyfr). Popraw
-nazwę pliku albo tytuł zadania w ClickUp i uruchom skan ponownie.
+(np. brakuje cyfry w numerze albo numer nie ma dokładnie 5 cyfr) — w nazwie
+zadania numer może stać w dowolnym miejscu, ale musi mieć dokładnie 5 cyfr
+i literę „OFFER” wielkimi literami. Popraw nazwę pliku albo tytuł zadania w
+ClickUp i uruchom skan ponownie.
 
 **Program czeka i pisze coś o limicie.**
 ClickUp ogranicza liczbę żądań na minutę. Program sam odczekuje i ponawia —
