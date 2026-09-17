@@ -28,19 +28,21 @@ Kliknij ikonę koła zębatego w prawym górnym rogu.
    Wklej skopiowany token w polu „Token API”.
 2. Kliknij **Wykryj** przy „Team ID” — rozwinie się lista zespołów, do których
    token ma dostęp. Wybierz właściwy z listy.
-3. **Lista zadań** — wklej **link do listy** z ClickUp (np.
-   `https://app.clickup.com/1553698/v/l/6-200608428-1`) albo samo ID listy.
+3. **Lista zadań** — najprościej kliknąć **„Wybierz z ClickUp…”**: otworzy
+   się drzewo `zespół → przestrzeń → folder → lista`, w którym wskazujesz
+   listę tak, jak widzisz ją w ClickUpie (gałęzie doczytują się przy
+   rozwijaniu). Po wyborze pod polem pojawia się nazwa wybranej listy.
+   Nadal można wpisać ręcznie **link do listy** (np.
+   `https://app.clickup.com/1553698/v/l/6-200608428-1`) albo samo ID.
    Domyślnie wpisana jest lista `TMA MAIN`.
-4. **Pole wartości** — nazwa pola w ClickUp, które ma być aktualizowane.
-   Domyślnie `OFFER VALUE` — zmień tylko, jeśli w Twojej liście pole nazywa
-   się inaczej.
-   **Pole daty wysłania** — nazwa pola z datą w ClickUp. Domyślnie
-   `SENT DATE`.
-5. **Folder** (sekcja „Oferty (Excel)”) — wskaż folder z plikami ofert
+   Nazwy pól `OFFER VALUE` i `SENT DATE` są **zaszyte w programie** — nie ma
+   ich już w ustawieniach. Wybrana lista musi je mieć (`OFFER VALUE` jako
+   pole kwotowe/liczbowe, `SENT DATE` jako pole typu data).
+4. **Folder** (sekcja „Oferty (Excel)”) — wskaż folder z plikami ofert
    (`…`), albo wpisz ścieżkę ręcznie. Program czyta tylko pliki
    `OFFER*.xlsm`/`OFFER*.xlsx` leżące **bezpośrednio** w tym folderze (nie
    przeszukuje podfolderów, np. archiwum poprzedniego roku).
-6. **Zapisz** (zobaczysz „✓ Zapisano”).
+5. **Zapisz** (zobaczysz „✓ Zapisano”).
 
 ## Praca z modułem — krok po kroku
 
@@ -204,9 +206,10 @@ wpisać tę datę do pola **SENT DATE** w ClickUp.
 - Kliknij **📅 Wpisz daty (N)** i potwierdź. Daty zapisują się po kolei, z
   logiem na bieżąco. Jeśli któraś się nie zapisze, zostaje w oknie z opisem
   błędu — możesz spróbować ponownie.
-- Data musi stać **na samym końcu** nazwy (`… v20260119`). Nazwa typu
-  `… v20260119 kopia` albo `…Robotv20260119` (bez spacji przed „v”) nie
-  zostanie rozpoznana.
+- Data musi stać **na samym końcu** nazwy (`… v20260119`). Kropka albo
+  nawias po dacie nie przeszkadza (`… v20260129.`, `… (v20260129)`), ale
+  nazwa typu `… v20260119 kopia` albo `…Robotv20260119` (bez spacji przed
+  „v”) nie zostanie rozpoznana.
 - Zadania tworzone przyciskiem **➕ Utwórz zadania** (punkt 7) dostają datę z
   nazwy pliku od razu przy tworzeniu.
 - Jeśli na liście nie ma pola SENT DATE (albo nie jest polem typu data),
@@ -222,8 +225,9 @@ każdego zadania ClickUp.
 ## Najczęstsze problemy
 
 **„Na liście nie ma pola OFFER VALUE”.**
-Sprawdź w ustawieniach (⚙), czy nazwa pola dokładnie zgadza się z nazwą pola
-w ClickUp (wielkość liter nie ma znaczenia, ale literówka już tak).
+Nazwa pola jest zaszyta w programie, więc ten komunikat znaczy, że wskazana
+lista nie ma takiego pola — czyli najpewniej wybrana jest **zła lista**.
+Otwórz ustawienia (⚙) i wskaż właściwą przez „Wybierz z ClickUp…”.
 
 **Plik oferty pokazuje „błąd odczytu”.**
 Najczęściej plik jest otwarty w Excelu (zablokowany) albo leży na OneDrive z
