@@ -34,6 +34,8 @@ Kliknij ikonę koła zębatego w prawym górnym rogu.
 4. **Pole wartości** — nazwa pola w ClickUp, które ma być aktualizowane.
    Domyślnie `OFFER VALUE` — zmień tylko, jeśli w Twojej liście pole nazywa
    się inaczej.
+   **Pole daty wysłania** — nazwa pola z datą w ClickUp. Domyślnie
+   `SENT DATE`.
 5. **Folder** (sekcja „Oferty (Excel)”) — wskaż folder z plikami ofert
    (`…`), albo wpisz ścieżkę ręcznie. Program czyta tylko pliki
    `OFFER*.xlsm`/`OFFER*.xlsx` leżące **bezpośrednio** w tym folderze (nie
@@ -187,7 +189,31 @@ Otworzy się okno z listą plików:
   „plik bez zadania” z przyczyną błędu — możesz spróbować ponownie bez
   ponownego skanowania całego folderu.
 
-### 8. Raport
+### 8. Data wysłania (SENT DATE)
+
+Jeśli nazwa zadania kończy się datą w formacie **v + rok miesiąc dzień**, np.
+`OFFER01126.1 - SPANG & BRANDS - Valve assembly v20260119`, program może
+wpisać tę datę do pola **SENT DATE** w ClickUp.
+
+- Po skanie przycisk **📅 SENT DATE (N)** pokazuje, ile zadań ma
+  datę w nazwie, a **puste** pole SENT DATE. Zadania, w których data jest już
+  wpisana, są pomijane — program **nigdy nie nadpisuje** istniejącej daty.
+- Kliknij przycisk — otworzy się okno z listą zadań i datą, która zostanie
+  wpisana (np. `19.01.2026`). Odznacz te, których nie chcesz zmieniać
+  (kliknięcie w kolumnę ☑), podwójny klik otwiera zadanie w ClickUp.
+- Kliknij **📅 Wpisz daty (N)** i potwierdź. Daty zapisują się po kolei, z
+  logiem na bieżąco. Jeśli któraś się nie zapisze, zostaje w oknie z opisem
+  błędu — możesz spróbować ponownie.
+- Data musi stać **na samym końcu** nazwy (`… v20260119`). Nazwa typu
+  `… v20260119 kopia` albo `…Robotv20260119` (bez spacji przed „v”) nie
+  zostanie rozpoznana.
+- Zadania tworzone przyciskiem **➕ Utwórz zadania** (punkt 7) dostają datę z
+  nazwy pliku od razu przy tworzeniu.
+- Jeśli na liście nie ma pola SENT DATE (albo nie jest polem typu data),
+  przycisk jest nieaktywny, a w logu pojawia się ostrzeżenie — reszta modułu
+  działa normalnie.
+
+### 9. Raport
 
 **⤓ Zapisz raport (CSV)** zapisuje bieżący stan tabeli do pliku — otwiera się
 poprawnie w Excelu (polskie znaki, przecinek dziesiętny) i zawiera link do
