@@ -200,6 +200,10 @@ wpisać tę datę do pola **SENT DATE** w ClickUp.
 - Po skanie przycisk **📅 SENT DATE (N)** pokazuje, ile zadań ma
   datę w nazwie, a **puste** pole SENT DATE. Zadania, w których data jest już
   wpisana, są pomijane — program **nigdy nie nadpisuje** istniejącej daty.
+- Pomijane są też zadania, które **jeszcze nie zostały wysłane** do klienta
+  (statusy `new inquiry`, `in progress`, `waiting for data`, `offer for
+  acceptance`, `offer to update`, `potential project`): data na końcu ich
+  nazwy to dzień rozpoczęcia pracy nad ofertą, a nie dzień wysłania.
 - Kliknij przycisk — otworzy się okno z listą zadań i datą, która zostanie
   wpisana (np. `19.01.2026`). Odznacz te, których nie chcesz zmieniać
   (kliknięcie w kolumnę ☑), podwójny klik otwiera zadanie w ClickUp.
@@ -211,7 +215,8 @@ wpisać tę datę do pola **SENT DATE** w ClickUp.
   nazwa typu `… v20260119 kopia` albo `…Robotv20260119` (bez spacji przed
   „v”) nie zostanie rozpoznana.
 - Zadania tworzone przyciskiem **➕ Utwórz zadania** (punkt 7) dostają datę z
-  nazwy pliku od razu przy tworzeniu.
+  nazwy pliku od razu przy tworzeniu — chyba że wybierzesz dla nich status
+  sprzed wysyłki (np. `in progress`); wtedy pole SENT DATE zostaje puste.
 - Jeśli na liście nie ma pola SENT DATE (albo nie jest polem typu data),
   przycisk jest nieaktywny, a w logu pojawia się ostrzeżenie — reszta modułu
   działa normalnie.
